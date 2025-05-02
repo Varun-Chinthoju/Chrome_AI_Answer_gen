@@ -16,6 +16,7 @@ This Chrome extension allows you to right-click selected text on any webpage and
 
 - A valid [OpenAI API Key](https://platform.openai.com/account/api-keys)
 - Google Chrome (latest version)
+- Any browser run on Chromium 
 
 ---
 
