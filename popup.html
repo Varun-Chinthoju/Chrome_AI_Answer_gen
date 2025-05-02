@@ -1,44 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>AI Answer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 15px;
       width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding: 10px;
+      box-sizing: border-box;
     }
     #answer {
       white-space: pre-wrap;
-      max-width: 400px;
-      max-height: 300px;
+      max-height: 260px;
       overflow-y: auto;
-    }
-    h2 {
-      margin-bottom: 15px;
     }
   </style>
 </head>
 <body>
-  <div>
-    <h2>AI Response</h2>
-    <div id="answer">Loading...</div>
-  </div>
+  <h3>AI Response</h3>
+  <div id="answer">Loading...</div>
   <script>
-    // Ensure the script runs after the DOM is fully loaded
     document.addEventListener("DOMContentLoaded", () => {
-      // Send a request to get the AI response when the popup is opened
       chrome.runtime.sendMessage({ action: "getAnswer" }, (response) => {
-        // Check if the response is valid and update the popup content
-        if (response && typeof response === "string") {
-          document.getElementById("answer").textContent = response;
-        } else {
-          document.getElementById("answer").textContent = "Failed to load response.";
-        }
+        const text = response?.answer || "Failed to load response.";
+        document.getElementById("answer").textContent = text;
       });
     });
   </script>
