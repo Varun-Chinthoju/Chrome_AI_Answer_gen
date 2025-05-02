@@ -1,19 +1,23 @@
 {
     "manifest_version": 3,
     "name": "AI Answer Generator",
-    "version": "1.1",
-    "description": "Generates AI answers from selected text",
+    "version": "1.0",
+    "description": "Right-click selected text to generate an AI answer.",
     "permissions": [
       "contextMenus",
+      "scripting",
       "activeTab",
       "storage"
     ],
-    "options_page": "options.html",
+    "host_permissions": [
+      "https://api.openai.com/*"
+    ],
     "background": {
       "service_worker": "background.js"
     },
-    "host_permissions": [
-      "https://api.openai.com/*"
-    ]
+    "action": {
+      "default_popup": "popup.html"
+      
+    }
   }
   
