@@ -1,5 +1,3 @@
-// background.js
-
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "ai-answer-gen",
@@ -10,6 +8,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 let latestAIResponse = "";
 
+// Handle context menu click
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId === "ai-answer-gen" && info.selectionText) {
     const selectedText = info.selectionText;
@@ -24,6 +23,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   }
 });
 
+// Provide the AI response to the popup
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "getAnswer") {
     sendResponse({ answer: latestAIResponse });
@@ -32,7 +32,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 async function getAIResponse(text) {
   try {
-    console.log("Sending request to Ollama (LLaMA model)...");
+    console.log("Sending request to Ollama...");
 
     const response = await fetch("http://localhost:11434/api/chat", {
       method: "POST",
@@ -41,18 +41,30 @@ async function getAIResponse(text) {
       },
       body: JSON.stringify({
         model: "llama2",
-        messages: [
-          { role: "user", content: text }
-        ],
+        messages: [{ role: "user", content: text }],
         stream: false
       })
     });
 
-    const data = await response.json();
-    console.log("Ollama Response:", data);
+    // Log the response to check its content
+    const responseText = await response.text();  // Get raw response
+    console.log("Ollama raw response:", responseText);
 
-    if (data.message && data.message.content) {
-      return data.message.content;
+    // Try to parse the response only if it's not empty
+    if (responseText.trim()) {
+      try {
+        const data = JSON.parse(responseText);
+        console.log("Ollama parsed response:", data);
+
+        if (data.message && data.message.content) {
+          return data.message.content;
+        } else {
+          return "No valid content returned from Ollama.";
+        }
+      } catch (err) {
+        console.error("Error parsing Ollama response:", err);
+        return "Error parsing response.";
+      }
     } else {
       return "No response from Ollama.";
     }
