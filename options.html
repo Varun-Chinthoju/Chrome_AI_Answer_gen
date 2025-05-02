@@ -1,24 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>AI Answer Extension Options</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    h1 {
-      font-size: 20px;
-    }
-    p {
-      font-size: 14px;
-    }
-  </style>
+  <title>Extension Options</title>
 </head>
 <body>
-  <h1>AI Answer Generator - Options</h1>
-  <p>This extension uses Ollama’s LLaMA model locally at <code>http://localhost:11434</code>.</p>
-  <p>No additional options are currently available.</p>
+  <h1>AI Answer Generator Options</h1>
+  <form id="options-form">
+    <label for="api-key">OpenAI API Key (optional):</label>
+    <input type="text" id="api-key" placeholder="Enter your OpenAI API key here" />
+    <button type="submit">Save</button>
+  </form>
+  <script src="options.js"></script>
 </body>
 </html>
