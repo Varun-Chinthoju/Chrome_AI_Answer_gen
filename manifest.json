@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "AI Answer Generator",
+    "version": "1.0",
+    "description": "Generates AI answers from selected text",
+    "permissions": [
+      "contextMenus",
+      "activeTab",
+      "storage"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "host_permissions": [
+      "https://api.openai.com/*"
+    ]
+  }
+  
