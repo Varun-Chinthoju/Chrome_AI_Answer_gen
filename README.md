@@ -1,54 +1,60 @@
-# AI Answer Generator Chrome Extension
 
-This Chrome extension allows you to right-click selected text on any webpage and generate an AI-powered response using OpenAI's GPT model.
+# 🧠 AI Answer Generator Chrome Extension (Ollama + LLaMA2)
+
+This Chrome extension allows you to right-click selected text on any webpage and get a response from a locally running LLaMA2 model using [Ollama](https://ollama.com).
 
 ---
 
 ## 🚀 Features
 
-- Right-click selected text
+- Right-click any selected text on a webpage
 - Choose **"AI Answer Gen"** from the context menu
-- Get an AI-generated answer via an alert popup
+- View AI response in a popup powered by Ollama + LLaMA2
 
 ---
 
 ## 🧠 Requirements
 
-- A valid [OpenAI API Key](https://platform.openai.com/account/api-keys)
-- Google Chrome (latest version)
-- Any browser run on Chromium 
+- [Ollama](https://ollama.com) installed and running locally
+- A downloaded model such as `llama2`
+  ```bash
+  ollama run llama2
+  ```
+- Google Chrome or any Chromium-based browser (e.g., Brave, Edge)
 
 ---
 
 ## 🛠️ Setup Instructions
 
-1. **Download and unzip** the extension folder.
-2. Open `background.js` and find the line:
-   ```js
-   const apiKey = "YOUR_API_KEY_HERE";
+1. **Install and run Ollama**
+   ```bash
+   brew install ollama
+   ollama run llama2
    ```
-   Replace it with your actual OpenAI API key:
-   ```js
-   const apiKey = "sk-...your_real_key_here...";
-   ```
-3. In Chrome, go to `chrome://extensions`
-4. Enable **Developer mode** (top right)
-5. Click **Load unpacked**
-6. Select the folder you just unzipped
+
+2. **Download and unzip** this extension folder.
+
+3. In Chrome, navigate to `chrome://extensions`.
+
+4. Enable **Developer Mode** (top right).
+
+5. Click **Load unpacked** and select the unzipped extension folder.
 
 ---
 
 ## 🧪 How to Use
 
-1. Select any text on a webpage
-2. Right-click and choose **"AI Answer Gen"**
-3. Wait a few seconds and an alert will show the AI's response
+1. Select text on any website.
+2. Right-click and choose **"AI Answer Gen"**.
+3. A popup window will display the AI's response from your local LLaMA2 model.
 
 ---
 
-## 🔒 Security Note
+## ⚠️ Notes
 
-This extension contains your OpenAI API key in plain text. Do **NOT** use this version in production or publish it without securing the key via a backend proxy.
+- This extension sends your prompt to `http://localhost:11434`, which is the default Ollama API port.
+- Make sure `ollama run llama2` is active before using the extension.
+- No OpenAI key is needed—everything runs locally.
 
 ---
 

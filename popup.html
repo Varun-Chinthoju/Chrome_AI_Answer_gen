@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Answer</title>
+  <meta charset="UTF-8" />
+  <title>AI Response</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
+      padding: 15px;
+    }
+    h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
     }
     #answer {
       white-space: pre-wrap;
       overflow-y: auto;
-      max-height: 200px;
+      max-height: 220px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
     }
   </style>
 </head>
@@ -18,7 +27,6 @@
   <h2>AI Response</h2>
   <div id="answer">Loading...</div>
 
-  <!-- ✅ Only external script allowed -->
   <script src="popup.js"></script>
 </body>
 </html>

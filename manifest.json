@@ -1,23 +1,22 @@
 {
-    "manifest_version": 3,
-    "name": "AI Answer Generator",
-    "version": "1.0",
-    "description": "Right-click selected text to generate an AI answer.",
-    "permissions": [
-      "contextMenus",
-      "scripting",
-      "activeTab",
-      "storage"
-    ],
-    "host_permissions": [
-      "https://api.openai.com/*"
-    ],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "action": {
-      "default_popup": "popup.html"
-      
-    }
+  "manifest_version": 3,
+  "name": "AI Answer Generator (Ollama)",
+  "version": "1.0",
+  "description": "Generates AI answers using Ollama's LLaMA model locally.",
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://localhost:11434/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AI Answer Gen"
   }
-  
+}
