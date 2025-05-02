@@ -29,10 +29,17 @@
     <div id="answer">Loading...</div>
   </div>
   <script>
-    // Send a request to get the AI response when the popup is opened
-    chrome.runtime.sendMessage({ action: "getAnswer" }, (response) => {
-      // Update the popup content with the AI response
-      document.getElementById("answer").textContent = response;
+    // Ensure the script runs after the DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      // Send a request to get the AI response when the popup is opened
+      chrome.runtime.sendMessage({ action: "getAnswer" }, (response) => {
+        // Check if the response is valid and update the popup content
+        if (response && typeof response === "string") {
+          document.getElementById("answer").textContent = response;
+        } else {
+          document.getElementById("answer").textContent = "Failed to load response.";
+        }
+      });
     });
   </script>
 </body>
