@@ -30,15 +30,17 @@ chrome.runtime.onInstalled.addListener(() => {
   // Provide answer to popup
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "getAnswer") {
+      console.log("Popup requested answer:", latestAIResponse);
       sendResponse({ answer: latestAIResponse });
     }
   });
+  
   
   // Get OpenAI API key from storage
   async function getAPIKey() {
     return new Promise((resolve) => {
       chrome.storage.local.get(["openai_api_key"], (result) => {
-        resolve(result.openai_api_key);
+        resolve("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");
       });
     });
   }
@@ -46,9 +48,13 @@ chrome.runtime.onInstalled.addListener(() => {
   // Get AI response using OpenAI API
   async function getAIResponse(text) {
     const apiKey = await getAPIKey();
-    if (!apiKey) return "API key not set. Please set it in the extension options.";
+    if (!apiKey) {
+      console.log("API key not set.");
+      return "API key not set. Please set it in the extension options.";
+    }
   
     try {
+      console.log("Sending request to OpenAI API...");
       const response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
@@ -64,8 +70,15 @@ chrome.runtime.onInstalled.addListener(() => {
       });
   
       const data = await response.json();
-      return data.choices?.[0]?.message?.content || "No response from AI.";
+      console.log("API Response:", data);  // Log the full API response
+  
+      if (data.choices && data.choices.length > 0) {
+        return data.choices[0].message.content;
+      } else {
+        return "No response from AI.";
+      }
     } catch (err) {
+      console.error("Error contacting OpenAI:", err);
       return "Error contacting OpenAI: " + err.message;
     }
   }
