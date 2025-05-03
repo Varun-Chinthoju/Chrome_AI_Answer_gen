@@ -1,9 +1,12 @@
+// popup.js
+
 document.addEventListener("DOMContentLoaded", () => {
   chrome.runtime.sendMessage({ action: "getAnswer" }, (response) => {
+    const answerDiv = document.getElementById("answer");
     if (response && response.answer) {
-      document.getElementById("answer").textContent = response.answer;
+      answerDiv.textContent = response.answer;
     } else {
-      document.getElementById("answer").textContent = "Failed to load response.";
+      answerDiv.textContent = "No response received.";
     }
   });
 });
