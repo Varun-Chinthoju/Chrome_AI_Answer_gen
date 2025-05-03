@@ -40,7 +40,7 @@ async function getAIResponse(text) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "llama2",
+        model: "llama3",
         messages: [{ role: "user", content: text }],
         stream: false
       })
