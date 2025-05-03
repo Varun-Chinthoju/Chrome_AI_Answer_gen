@@ -54,7 +54,7 @@ This Chrome extension allows you to right-click selected text on any webpage and
 
 - This extension sends your prompt to `http://localhost:11434`, which is the default Ollama API port.
 - Make sure `ollama run LLaMA3` is active before using the extension.
-- No OpenAI key is needed—everything runs locally.
+- No API key is needed—everything runs locally.
 
 ---
 
