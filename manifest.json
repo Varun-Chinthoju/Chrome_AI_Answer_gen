@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "AI Answer Generator",
-  "version": "1.0",
-  "description": "Generates AI answers from selected text using Ollama's LLaMA model",
+  "version": "1.5",
+  "description": "Generates AI answers from selected text using Ollama's LLaMA 3 model",
   "permissions": [
     "contextMenus",
     "activeTab",
