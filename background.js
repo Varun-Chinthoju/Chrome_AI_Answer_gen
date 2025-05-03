@@ -30,31 +30,26 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+// Updated to go through a CORS-friendly proxy at http://localhost:3000/ask
 async function getAIResponse(text) {
   try {
-    console.log("Sending request to Ollama...");
+    console.log("Sending request to proxy server...");
 
-    const response = await fetch("http://localhost:11434/api/chat", {
+    const response = await fetch("http://localhost:3000/ask", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        model: "llama3",
-        messages: [{ role: "user", content: text }],
-        stream: false
-      })
+      body: JSON.stringify({ prompt: text })
     });
 
-    // Log the response to check its content
-    const responseText = await response.text();  // Get raw response
-    console.log("Ollama raw response:", responseText);
+    const responseText = await response.text(); // Raw response
+    console.log("Proxy raw response:", responseText);
 
-    // Try to parse the response only if it's not empty
     if (responseText.trim()) {
       try {
         const data = JSON.parse(responseText);
-        console.log("Ollama parsed response:", data);
+        console.log("Proxy parsed response:", data);
 
         if (data.message && data.message.content) {
           return data.message.content;
@@ -62,14 +57,14 @@ async function getAIResponse(text) {
           return "No valid content returned from Ollama.";
         }
       } catch (err) {
-        console.error("Error parsing Ollama response:", err);
+        console.error("Error parsing response:", err);
         return "Error parsing response.";
       }
     } else {
-      return "No response from Ollama.";
+      return "No response from proxy.";
     }
   } catch (err) {
-    console.error("Error contacting Ollama:", err);
-    return "Error contacting Ollama: " + err.message;
+    console.error("Error contacting proxy server:", err);
+    return "Error contacting proxy server: " + err.message;
   }
 }
